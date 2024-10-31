@@ -1,16 +1,15 @@
 import pandas as pd
-file=pd.read_csv("users.csv")
+file = pd.read_csv('users.csv')
 
-hire_count=len(file[file['hireable']==True])
-unhire_count=len(file[file['hireable']!=True])
+hire = file[file['hireable'] == True]
+unhire = file[file['hireable'] != True]
 
-hfc=0
-unhfc=0
+# Calculate the average 'following' for hireable and non-hireable users
+avg_following_hireable = hire['following'].mean()
+avg_following_non_hireable = unhire['following'].mean()
 
-for _,row in file.iterrows():
-    if row['hireable']=='True':
-        hfc+=row['following']
-    else:
-        unhfc+=row['following']
-        
-print(round((hfc/hire_count)-(unhfc/unhire_count),3))
+# Calculate the difference in averages
+difference = avg_following_hireable - avg_following_non_hireable
+
+# Print the difference rounded to 3 decimal places
+print(round(difference, 3))
